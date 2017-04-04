@@ -11,14 +11,14 @@ public class syncpub{
     /**
      * We wait for 10 subscribers
      */
-    protected static int SUBSCRIBERS_EXPECTED = 10;
+    protected static int SUBSCRIBERS_EXPECTED = 1;
 
     public static void main (String[] args) {
         Context context = ZMQ.context(1);
 
         //  Socket to talk to clients
         Socket publisher = context.socket(ZMQ.PUB);
-        publisher.setLinger(5000);
+        publisher.setLinger(500);
         // In 0MQ 3.x pub socket could drop messages if sub can follow the generation of pub messages
         publisher.setSndHWM(0);
         publisher.bind("tcp://*:5561");
@@ -43,7 +43,14 @@ public class syncpub{
 
         int update_nbr;
         for (update_nbr = 0; update_nbr < 1000000; update_nbr++){
-            publisher.send("Rhubarb", 0);
+            publisher.send("Rhubarb " + update_nbr, 0);
+            System.out.println("sent message : " + "Rhubarb " + update_nbr);
+            try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         publisher.send("END", 0);

@@ -4,10 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
+		/**/
 		Pub pub = new Pub("ichatt");
+		new Thread(pub).start();
+		/**/
+		/*/
 		Sub sub = new Sub("ichatt");
 		new Thread(sub).start();
-		new Thread(pub).start();
+		/**/
 	}
 }
 
@@ -38,7 +42,7 @@ class Sub implements Runnable {
 	Subscriber sub;
 
 	public Sub(String topicId) throws Exception {
-		sub = new SubscriberImpl("tcp://localhost:5556", topicId);
+		sub = new SubscriberImpl("tcp://127.0.0.1:5555", topicId);
 	}
 
 	@Override

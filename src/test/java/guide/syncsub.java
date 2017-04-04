@@ -34,6 +34,7 @@ public class syncsub{
             if (string.equals("END")) {
                 break;
             }
+            System.out.println("received message " + string);
             update_nbr++;
         }
         System.out.println("Received " + update_nbr + " updates.");

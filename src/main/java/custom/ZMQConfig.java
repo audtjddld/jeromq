@@ -1,4 +1,4 @@
-package zmq.test;
+package custom;
 
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ.Socket;
@@ -34,14 +34,12 @@ public class ZMQConfig {
 
 		socket = context.createSocket(type);
 
-		socket.connect(address);
-		/*
 		if (type == 1) { // publisher
 			socket.bind(address);
 		} else if (type == 2) { // subscriber
 			socket.connect(address);
 		}
-		*/
+
 		return this.socket;
 	}
 }

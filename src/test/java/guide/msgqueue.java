@@ -16,11 +16,11 @@ public class msgqueue{
 
         //  Socket facing clients
         Socket frontend = context.socket(ZMQ.ROUTER);
-        frontend.bind("tcp://*:5559");
+        frontend.bind("tcp://*:5556");
 
         //  Socket facing services
         Socket backend = context.socket(ZMQ.DEALER);
-        backend.bind("tcp://*:5560");
+        backend.bind("tcp://*:5555");
 
         //  Start the proxy
         ZMQ.proxy (frontend, backend, null);

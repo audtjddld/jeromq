@@ -1,4 +1,4 @@
-package zmq.test;
+package custom;
 
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Socket;

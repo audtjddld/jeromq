@@ -1,4 +1,4 @@
-package zmq.test;
+package custom;
 
 public interface Subscriber {
 	// String getMessage();
