@@ -19,7 +19,7 @@ class Pub implements Runnable {
 	Publisher pub;
 
 	public Pub(String topicId) throws Exception {
-		pub = new PublisherImpl("tcp://*:5556", topicId);
+		pub = new PublisherImpl("tcp://*:5555", topicId);
 	}
 
 	@Override

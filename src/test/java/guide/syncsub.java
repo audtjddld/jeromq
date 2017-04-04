@@ -14,12 +14,12 @@ public class syncsub{
 
         //  First, connect our subscriber socket
         Socket subscriber = context.socket(ZMQ.SUB);
-        subscriber.connect("tcp://localhost:5561");
+        subscriber.connect("tcp://192.168.1.24:5561");
         subscriber.subscribe(ZMQ.SUBSCRIPTION_ALL);
 
         //  Second, synchronize with publisher
         Socket syncclient = context.socket(ZMQ.REQ);
-        syncclient.connect("tcp://localhost:5562");
+        syncclient.connect("tcp://192.168.1.24:5562");
 
         //  - send a synchronization request
         syncclient.send(ZMQ.MESSAGE_SEPARATOR, 0);

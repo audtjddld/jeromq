@@ -35,13 +35,11 @@ public class ZMQConfig {
 		socket = context.createSocket(type);
 
 		socket.connect(address);
-		/*
 		if (type == 1) { // publisher
 			socket.bind(address);
 		} else if (type == 2) { // subscriber
 			socket.connect(address);
 		}
-		*/
 		return this.socket;
 	}
 }
