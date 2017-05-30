@@ -10,7 +10,7 @@ public class ZMQConfig {
 	private ZContext context;
 
 	public ZMQConfig() {
-		this.context = new ZContext();
+		this.context = new ZContext(1);
 	}
 
 	public ZMQConfig address(String address) {
@@ -24,22 +24,16 @@ public class ZMQConfig {
 	}
 
 	public Socket build() throws Exception {
-
 		if (address == null) {
 			throw new Exception(" address or connection is null ");
 		}
 		if (type == null) {
 			throw new Exception(" type is null ");
 		}
-
 		socket = context.createSocket(type);
-
-		socket.connect(address);
-		if (type == 1) { // publisher
-			socket.bind(address);
-		} else if (type == 2) { // subscriber
-			socket.connect(address);
-		}
+		socket.setHWM(10);
+		socket.bind(address);
+		
 		return this.socket;
 	}
 }

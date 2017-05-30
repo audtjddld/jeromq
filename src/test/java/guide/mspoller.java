@@ -8,7 +8,7 @@ import org.zeromq.ZMQ;
 //
 public class mspoller {
 
-    public static void main (String[] args) {
+    public static void main (String[] args) throws Exception {
         ZMQ.Context context = ZMQ.context(1);
 
         // Connect to task ventilator
@@ -18,7 +18,7 @@ public class mspoller {
         //  Connect to weather server
         ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
         subscriber.connect("tcp://localhost:5556");
-        subscriber.subscribe("10001 ".getBytes(ZMQ.CHARSET));
+        subscriber.subscribe(ZMQ.SUBSCRIPTION_ALL);
 
         //  Initialize poll set
         ZMQ.Poller items = context.poller(2);
@@ -28,14 +28,18 @@ public class mspoller {
         //  Process messages from both sockets
         while (!Thread.currentThread ().isInterrupted ()) {
             byte[] message;
-            items.poll();
+            int rc = items.poll();
+            //System.out.println(rc);
+            if(rc == -1) {
+            	throw new Exception("message not found");
+            }
             if (items.pollin(0)) {
                 message = receiver.recv(0);
-                System.out.println("Process task");
+                System.out.println(message);
             }
             if (items.pollin(1)) {
                 message = subscriber.recv(0);
-                System.out.println("Process weather update");
+                System.out.println(message);
             }
         }
         receiver.close ();
